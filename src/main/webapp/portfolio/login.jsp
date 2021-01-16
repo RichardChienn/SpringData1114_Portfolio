@@ -69,7 +69,7 @@
                 </form>
             </td>
             <td valign="top">
-                <form id="myform" class="pure-form" method="post" action="${pageContext.request.contextPath}/mvc/portfolio/login">
+                <form id="myform" class="pure-form" method="post" 
                     <fieldset>
                         <legend><h1><img src="${pageContext.request.contextPath}/images/user.png" width="40" valign="middle"> Register Form</h1></legend>
                         <input type="text" name="username" placeholder="Username"><p />
