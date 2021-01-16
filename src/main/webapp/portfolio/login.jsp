@@ -22,6 +22,7 @@
                 $("#add").on("click", function () {
                     var jsonObj = $('#myform').serializeObject(); // 將表單資料封裝序列
                     var jsonStr = JSON.stringify(jsonObj); // 將物件資料轉為 Json 字串
+                    console.log(jsonStr);
                     $.ajax({
                         url: "${pageContext.request.contextPath}/mvc/portfolio/investor/",
                         type: "POST",
@@ -47,7 +48,20 @@
                         }
                     });
                 });
-
+                $("#username").blur(function() {
+                    console.log($("#username").val());
+                    var username = $("#username").val();
+                    $.get("${pageContext.request.contextPath}/mvc/portfolio/investor/duplicate/" + username, function (data, status) {
+                        console.log(data);
+                        if(data) {
+                            $("#add").attr("disabled", true);
+                            $("#msg").text("重複名稱");
+                        } else {
+                            $("#add").attr("disabled", false);
+                            $("#msg").text("");
+                        }
+                    });
+                });
             });
             
         </script>
@@ -69,14 +83,19 @@
                 </form>
             </td>
             <td valign="top">
-                <form id="myform" class="pure-form" method="post" 
+                <form id="myform" class="pure-form" method="post">
                     <fieldset>
-                        <legend><h1><img src="${pageContext.request.contextPath}/images/user.png" width="40" valign="middle"> Register Form</h1></legend>
-                        <input type="text" name="username" placeholder="Username"><p />
-                        <input type="password" name="password" placeholder="Password"><p />
+                        <legend>
+                            <h1>
+                                <img src="${pageContext.request.contextPath}/images/user.png" width="40" valign="middle"> 
+                                Register Form
+                            </h1>
+                        </legend>
+                        <input type="text" id="username" name="username" placeholder="Username">&nbsp;&nbsp;<span id="msg" style="color: red"></span><p />
+                        <input type="password" id="password" name="password" placeholder="Password"><p />
                         <input id="email" name="email" placeholder="Email"/><p />
                         <input id="balance" name="balance" placeholder="Balance" type="number"/><p />
-                        <button id="add" type="button" class="pure-button pure-button-primary">Register</button>
+                        <button id="add" type="button" class="pure-button pure-button-primary" disabled>Register</button>
                     </fieldset>
                 </form>
             </td>
