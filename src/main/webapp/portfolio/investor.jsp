@@ -65,11 +65,10 @@
                         }
                     });
                 });
-                
                 // 資料列表
                 table_list();
             });
-
+            // 資料列表
             function table_list() {
                 $.get("${pageContext.request.contextPath}/mvc/portfolio/investor/", function (datas, status) {
                     console.log("Datas: " + datas);
